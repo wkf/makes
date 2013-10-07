@@ -1,0 +1,11 @@
+#!/bin/sh
+
+while read old_rev new_rev ref_name
+do
+	pwd
+
+	echo $old_rev
+	echo $new_rev
+	echo $ref_name
+	echo $GIT_DIR
+done

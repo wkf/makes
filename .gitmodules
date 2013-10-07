@@ -1,0 +1,3 @@
+[submodule "images/docker-node"]
+	path = images/docker-node
+	url = https://github.com/wkf/docker-node
