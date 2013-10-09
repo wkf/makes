@@ -1,3 +1,6 @@
 [submodule "images/docker-node"]
 	path = images/docker-node
 	url = https://github.com/wkf/docker-node
+[submodule "images/docker-wordpress"]
+	path = images/docker-wordpress
+	url = git@github.com:wkf/docker-wordpress.git
