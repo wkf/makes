@@ -13,21 +13,20 @@ Vagrant.configure("2") do |config|
 # install varnish 
 #   http://www.linuxsystemhacks.com/2013/08/how-to-install-varnish-reverse-proxy-on.html#.UlICxWR_XBg
 
-  config.vm.provision :shell, inline: <<-SHELL
-    useradd git
-    su git -c 'mkdir ~/.ssh && touch ~/.ssh/authorized_keys'
-    su git -c 'cd ~ && git init --bare my-project.git'
-    cat /vagrant/keys/id_rsa.pub >> /home/git/.ssh/authorized_keys
-    apt-get install -y git
-  SHELL
+  config.berkshelf.enabled    = true
+  config.omnibus.chef_version = :latest
 
-  config.vm.provider :virtualbox do |vb|
-    vb.customize [
-      "setextradata",
-      :id,
-      "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root",
-      "1"
-    ]
-  end 
+  config.vm.provision :chef_solo do |chef|
+    chef.add_recipe 'docker'
+  end
+
+  # config.vm.provision :shell, inline: <<-SHELL
+  #   useradd git && mkdir /home/git
+  #   su git -c 'mkdir ~/.ssh && touch ~/.ssh/authorized_keys'
+  #   su git -c 'cd ~ && git init --bare my-project.git'
+  #   cat /vagrant/keys/id_rsa.pub >> /home/git/.ssh/authorized_keys
+  #   apt-get install -y git
+  # SHELL
+
 end
 
