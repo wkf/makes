@@ -14,7 +14,11 @@ Vagrant.configure("2") do |config|
 #   http://www.linuxsystemhacks.com/2013/08/how-to-install-varnish-reverse-proxy-on.html#.UlICxWR_XBg
 
   config.vm.provision :shell, inline: <<-SHELL
-
+    useradd git
+    su git -c 'mkdir ~/.ssh && touch ~/.ssh/authorized_keys'
+    su git -c 'cd ~ && git init --bare my-project.git'
+    cat /vagrant/keys/id_rsa.pub >> /home/git/.ssh/authorized_keys
+    apt-get install -y git
   SHELL
 
   config.vm.provider :virtualbox do |vb|
